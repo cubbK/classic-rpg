@@ -1,9 +1,7 @@
 import registerServiceWorker from './registerServiceWorker'
 import './styles.module.styl'
-registerServiceWorker()
 const PIXI = require('pixi.js')
-
-var app = new PIXI.Application()
+registerServiceWorker()
 
 const renderer = PIXI.autoDetectRenderer(
   256, 256,
