@@ -22,6 +22,7 @@ PIXI.loader
   .add('player', playerPic)
   .load(setup)
 
+const groundHeight = renderer.height / 2 - 20
 let hero, state
 
 function setup () {
@@ -40,6 +41,12 @@ function setup () {
   playerLoop()
 }
 
+document.addEventListener('keydown', event => {
+  if (event.key === ' ') {
+    hero.sprite.vy = -17
+  }
+})
+
 function playerLoop () {
   // Loop this function 60 times per second
   window.requestAnimationFrame(playerLoop)
@@ -52,5 +59,12 @@ function playerLoop () {
 }
 
 function play () {
-  hero.sprite.x += 1
+  if (hero.sprite.y < groundHeight - 230) {
+    hero.sprite.vy = 12
+  }
+  if (hero.sprite.y > groundHeight) {
+    hero.sprite.vy = 0
+    hero.sprite.y = groundHeight
+  }
+  hero.sprite.y += hero.sprite.vy
 }

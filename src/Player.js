@@ -7,7 +7,7 @@ class Player {
       PIXI.loader.resources['player'].texture
     )
     this.sprite.y = renderer.height / 2 - 20
-    this.sprite.x = 80
+    this.sprite.x = 160
     stage.addChild(this.sprite)
   }
 }
