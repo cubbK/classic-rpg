@@ -22,6 +22,8 @@ PIXI.loader
   .add('player', playerPic)
   .load(setup)
 
+let hero, state
+
 function setup () {
   const nrOfGrassTiles = Math.floor(renderer.width / 70) + 1
   const nrOfSandVert = Math.floor(((renderer.height + 70) / 2) / 70) + 1
@@ -29,9 +31,26 @@ function setup () {
   drawGrass(nrOfGrassTiles)
   drawSand(nrOfGrassTiles, nrOfSandVert)
 
-  const hero = new Player(renderer.heigh)
+  hero = new Player(renderer.heigh)
   hero.draw()
+  hero.sprite.vy = 0
+
+  state = play
+
+  playerLoop()
+}
+
+function playerLoop () {
+  // Loop this function 60 times per second
+  window.requestAnimationFrame(playerLoop)
+
+  // Move the cat 1 pixel per frame
+  state()
 
   // Render the stage
   renderer.render(stage)
+}
+
+function play () {
+  hero.sprite.x += 1
 }
