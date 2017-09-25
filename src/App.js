@@ -42,7 +42,7 @@ function setup () {
 }
 
 document.addEventListener('keydown', event => {
-  if (event.key === ' ') {
+  if (event.key === ' ' && hero.sprite.y === groundHeight) {
     hero.sprite.vy = -17
   }
 })
