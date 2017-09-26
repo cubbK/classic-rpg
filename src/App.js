@@ -1,7 +1,12 @@
 import grassPic from './assets/Tiles/grassMid.png'
 import sandPic from './assets/Tiles/sandCenter.png'
 import playerPic from './assets/Player/p1_stand.png'
+import cactusPic from './assets/Items/cactus.png'
+import boxPic from './assets/Tiles/box.png'
+import boxAltPic from './assets/Tiles/boxAlt.png'
+
 import {drawGrass, drawSand} from './tileActions'
+import Obstacle from './Obstacle'
 import Player from './Player'
 
 const PIXI = require('pixi.js')
@@ -20,9 +25,12 @@ PIXI.loader
   .add('grass', grassPic)
   .add('sand', sandPic)
   .add('player', playerPic)
+  .add('cactus', cactusPic)
+  .add('box', boxPic)
+  .add('boxAlt', boxAltPic)
   .load(setup)
 
-const groundHeight = renderer.height / 2 - 20
+export const groundHeight = renderer.height / 2 - 20
 let hero, state
 
 function setup () {
@@ -31,6 +39,10 @@ function setup () {
 
   drawGrass(nrOfGrassTiles)
   drawSand(nrOfGrassTiles, nrOfSandVert)
+  
+  const box = new Obstacle()
+  box.addAll()
+  console.log(box.obstaclesList)
 
   hero = new Player(renderer.heigh)
   hero.draw()
@@ -41,8 +53,14 @@ function setup () {
   playerLoop()
 }
 
-document.addEventListener('keydown', event => {
+document.addEventListener('keypress', event => {
   if (event.key === ' ' && hero.sprite.y === groundHeight) {
+    hero.sprite.vy = -17
+  }
+})
+
+document.addEventListener('touchstart', () => {
+  if (hero.sprite.y === groundHeight) {
     hero.sprite.vy = -17
   }
 })
@@ -51,7 +69,6 @@ function playerLoop () {
   // Loop this function 60 times per second
   window.requestAnimationFrame(playerLoop)
 
-  // Move the cat 1 pixel per frame
   state()
 
   // Render the stage
