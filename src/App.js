@@ -31,7 +31,7 @@ PIXI.loader
   .load(setup)
 
 export const groundHeight = renderer.height / 2 - 20
-let hero, state
+let hero, state, box
 
 function setup () {
   const nrOfGrassTiles = Math.floor(renderer.width / 70) + 1
@@ -39,8 +39,8 @@ function setup () {
 
   drawGrass(nrOfGrassTiles)
   drawSand(nrOfGrassTiles, nrOfSandVert)
-  
-  const box = new Obstacle()
+
+  box = new Obstacle()
   box.addAll()
   console.log(box.obstaclesList)
 
@@ -84,4 +84,5 @@ function play () {
     hero.sprite.y = groundHeight
   }
   hero.sprite.y += hero.sprite.vy
+  box.moveLeftAll(10)
 }
