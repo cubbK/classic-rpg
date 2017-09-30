@@ -13,7 +13,6 @@ import SpriteUtilities from 'pixi-sprite-utilities'
 
 const PIXI = require('pixi.js')
 
-
 export const stage = new PIXI.Container()
 export const renderer = PIXI.autoDetectRenderer(256, 256)
 export const spriteUtil = new SpriteUtilities(PIXI)
