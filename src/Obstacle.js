@@ -21,24 +21,19 @@ class Obstacle {
   addAll () {
     const nrObstacles = Math.floor(renderer.width / 70 / 5) + 1
     for (let i = 0; i < nrObstacles; i++) {
-      this.add(i * getRandomInt(420, 630) + renderer.width)
+      this.add(i * 1000 + renderer.width * 2)
     }
+    this.length = this.obstaclesList.length - 1
   }
 
   moveLeftAll (speed) {
     for (const obstacle of this.obstaclesList) {
       if (obstacle.x < -140) {
-        
-        obstacle.x = renderer.width + getRandomInt(420, 630)
+        obstacle.x = renderer.width + 1000 + getRandomInt(-100, 100)
       } else {
         obstacle.x = obstacle.x - 12
       }
     }
-  }
-
-  isLastOutsideRenderer () {
-    const length = this.obstaclesList.length - 1
-    return this.obstaclesList[length] > renderer.width
   }
 }
 

@@ -9,9 +9,14 @@ import {drawGrass, drawSand} from './tileActions'
 import Obstacle from './Obstacle'
 import Player from './Player'
 
+import SpriteUtilities from 'pixi-sprite-utilities'
+
 const PIXI = require('pixi.js')
+
+
 export const stage = new PIXI.Container()
 export const renderer = PIXI.autoDetectRenderer(256, 256)
+export const spriteUtil = new SpriteUtilities(PIXI)
 
 renderer.view.style.position = 'absolute'
 renderer.view.style.display = 'block'
@@ -55,13 +60,13 @@ function setup () {
 
 document.addEventListener('keypress', event => {
   if (event.key === ' ' && hero.sprite.y === groundHeight) {
-    hero.sprite.vy = -17
+    hero.sprite.vy = -20
   }
 })
 
 document.addEventListener('touchstart', () => {
   if (hero.sprite.y === groundHeight) {
-    hero.sprite.vy = -17
+    hero.sprite.vy = -20
   }
 })
 
@@ -77,7 +82,7 @@ function playerLoop () {
 
 function play () {
   if (hero.sprite.y < groundHeight - 230) {
-    hero.sprite.vy = 12
+    hero.sprite.vy = 16
   }
   if (hero.sprite.y > groundHeight) {
     hero.sprite.vy = 0
