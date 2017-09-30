@@ -13,6 +13,7 @@ import SpriteUtilities from 'pixi-sprite-utilities'
 
 const PIXI = require('pixi.js')
 
+const gameOverStage = new PIXI.Container()
 export const stage = new PIXI.Container()
 export const renderer = PIXI.autoDetectRenderer(256, 256)
 export const spriteUtil = new SpriteUtilities(PIXI)
@@ -35,7 +36,7 @@ PIXI.loader
   .load(setup)
 
 export const groundHeight = renderer.height / 2 - 20
-export let hero, state, box
+export let hero, state, box, restartButton, scoreText
 
 function setup () {
   const nrOfGrassTiles = Math.floor(renderer.width / 70) + 1
@@ -46,19 +47,29 @@ function setup () {
 
   box = new Obstacle()
   box.addAll()
-  console.log(box.obstaclesList)
 
   hero = new Player(renderer.heigh)
   hero.draw()
   hero.sprite.vy = 0
 
+  scoreText = new PIXI.Text('Score: ' + box.score, {fontSize: '32px', color: '#222'})
+  scoreText.x = renderer.width - 5
+  scoreText.y = 5
+  scoreText.anchor.x = 1
+  stage.addChild(scoreText)
+
   state = play
   renderer.render(stage)
 
-  const button = document.querySelector('.play')
-  button.addEventListener('click', () => {
+  const playButton = document.querySelector('.play')
+  playButton.addEventListener('click', () => {
     playerLoop()
-    button.style.display = 'none'
+    playButton.style.display = 'none'
+  })
+  restartButton = document.querySelector('.restart')
+  restartButton.style.display = 'none'
+  restartButton.addEventListener('click', () => {
+    window.location.reload()
   })
 }
 
@@ -81,10 +92,10 @@ function playerLoop () {
   state()
 
   // Render the stage
-  renderer.render(stage)
 }
 
 function play () {
+  scoreText.text = 'Score: ' + box.score
   if (hero.sprite.y < groundHeight - 230) {
     hero.sprite.vy = 16
   }
@@ -95,6 +106,18 @@ function play () {
   hero.sprite.y += hero.sprite.vy
   box.moveLeftAll(10)
   if (box.checkIfColliding()) {
-    console.log("collision")
+    restartButton.style.display = 'block'
+    state = gameOver
   }
+  renderer.render(stage)
+}
+
+function gameOver () {
+  const finalScore = new PIXI.Text('Final Score: ' + box.score, {fontSize: '24px', color: '#222'})
+  finalScore.x = renderer.width / 2
+  finalScore.y = renderer.height / 2
+  finalScore.anchor.x = 0.5
+  finalScore.anchor.y = 0.5
+  gameOverStage.addChild(finalScore)
+  renderer.render(gameOverStage)
 }

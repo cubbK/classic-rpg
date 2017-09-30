@@ -6,6 +6,7 @@ const PIXI = require('pixi.js')
 class Obstacle {
   constructor () {
     this.obstaclesList = []
+    this.score = 0
   }
 
   add (initialX = 0) {
@@ -30,6 +31,7 @@ class Obstacle {
   moveLeftAll (speed) {
     for (const [index, obstacle] of this.obstaclesList.entries()) {
       if (obstacle.x < -140) {
+        this.score = this.score + 1
         obstacle.x = this.obstaclesList[this.lastObstacleIndex].x + getRandomInt(350, 800)
         this.lastObstacleIndex = index
       } else {
