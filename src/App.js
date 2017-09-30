@@ -35,7 +35,7 @@ PIXI.loader
   .load(setup)
 
 export const groundHeight = renderer.height / 2 - 20
-let hero, state, box
+export let hero, state, box
 
 function setup () {
   const nrOfGrassTiles = Math.floor(renderer.width / 70) + 1
@@ -89,4 +89,7 @@ function play () {
   }
   hero.sprite.y += hero.sprite.vy
   box.moveLeftAll(10)
+  if (box.checkIfColliding()) {
+    console.log("collision")
+  }
 }
