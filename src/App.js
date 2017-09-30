@@ -53,8 +53,13 @@ function setup () {
   hero.sprite.vy = 0
 
   state = play
+  renderer.render(stage)
 
-  playerLoop()
+  const button = document.querySelector('.play')
+  button.addEventListener('click', () => {
+    playerLoop()
+    button.style.display = 'none'
+  })
 }
 
 document.addEventListener('keypress', event => {

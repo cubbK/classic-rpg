@@ -1,5 +1,36 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    position: relative;
+    height: 100vh
+}
+
+.play {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 150px;
+    margin: auto;
+    z-index: 2;
+    width: 100px;
+    height: 50px;
+    line-height: 50px;
+    background: #fafafa;
+    color: #222222;
+    display: flex;
+    justify-content: center;
+    border: 0;
+    cursor: pointer;
+    transition: all 0.1s;
+    font-size: 18px;
+}
+
+.play:hover,
+.play:active,
+.play:focus {
+    background-color: #222222;
+    color: #fafafa;
+    outline: none;
 }
